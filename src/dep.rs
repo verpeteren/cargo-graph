@@ -65,10 +65,11 @@ impl ResolvedDep {
         } else {
             self.name.clone()
         };
+        let href = format!(", href=\"https://crates.io/crates/{}\"", name.replace(" v", "/"));
         match self.kind() {
-            DepKind::Dev => writeln!(w, "[label={:?}{}];", name, c.dev_style),
-            DepKind::Optional => writeln!(w, "[label={:?}{}];", name, c.optional_style),
-            _ => writeln!(w, "[label={:?}{}];", name, c.build_style),
+            DepKind::Dev => writeln!(w, "[label={:?}{}{}];", name, c.dev_style, href),
+            DepKind::Optional => writeln!(w, "[label={:?}{}{}];", name, c.optional_style, href),
+            _ => writeln!(w, "[label={:?}{}{}];", name, c.build_style, href),
         }
     }
 }
